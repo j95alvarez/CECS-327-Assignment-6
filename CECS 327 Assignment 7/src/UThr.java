@@ -1,6 +1,12 @@
 import java.util.*;
 
 public class UThr extends Thread {
+	int id;
+	String request;
+	public UThr(int id, String request){
+		this.id = id;
+		this.request = request;
+	}
 	public void run() {
 		Random ran = new Random();						//Creates random object
 		for(int i = 0; i < 20; i++){
