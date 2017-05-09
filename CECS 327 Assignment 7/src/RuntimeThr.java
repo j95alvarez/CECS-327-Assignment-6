@@ -29,7 +29,7 @@ public class RuntimeThr extends Thread {
 				System.out.println("REQUEST: " + request);
 
 
-				if(request.equals("NEXTEVEN\n") || request.equals("NEXTODD\n")) {
+				if(request.equals("NEXTEVEN") || request.equals("NEXTODD")) {
 					new LocalThr(request, resultQue).run();
 					RuntimeThr.evenOddSequence++;
 

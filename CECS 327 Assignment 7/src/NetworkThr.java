@@ -21,10 +21,10 @@ public class NetworkThr implements Runnable {
 			DataOutputStream outToServer = new DataOutputStream(client.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			
-			outToServer.writeBytes(command);
+			outToServer.writeBytes(command + '\n');
 			result = inFromServer.readLine();
 			
-			resultQue.add(result + "");
+			resultQue.add(command + " " + result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

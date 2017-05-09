@@ -5,6 +5,7 @@ public class UClient {
 		ConcurrentLinkedQueue<String> requestQue = new ConcurrentLinkedQueue<String>();
 		ConcurrentLinkedQueue<String> resultQue = new ConcurrentLinkedQueue<String>();
 
+		/*
 		requestQue.add("NEXTEVEN\n");
 		
 		requestQue.add("NEXTODD\n");
@@ -14,7 +15,10 @@ public class UClient {
 		requestQue.add("NEXTODD\n");
 		
 		requestQue.add("NEXTEVEN\n");
-		
+		*/
+
+		for(int i = 0; i < 8; i++)
+			new UThr(requestQue, resultQue).run();
 
 		new RuntimeThr(requestQue, resultQue).run();	
 	}

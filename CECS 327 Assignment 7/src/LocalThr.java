@@ -19,12 +19,12 @@ public class LocalThr extends Thread {
 			x = 0;
 		}
 
-		if (command.equals("NEXTEVEN\n"))
+		if (command.equals("NEXTEVEN"))
 			result = setNextEven();
 		else
 			result = setNextOdd();
 
-		resultQue.add(result + "");
+		resultQue.add(command + " " + result);
 	}
 	
 	public int setNextEven() {

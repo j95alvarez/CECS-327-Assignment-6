@@ -1,9 +1,11 @@
 public class Node {
 	public int id;
-	public String request;
+	public int cmdNum;
+	public String command;
 
-	public Node(int i, String r){
+	public Node(int i, int cmdN, String r){
 		this.id = i;
-		this.request = r;
+		this.cmdNum = cmdNum;
+		this.command = r;
 	}
 }
