@@ -2,10 +2,15 @@ import java.util.concurrent.*;
 
 public class UClient {
 	public static void main(String[] args) {
-		ConcurrentLinkedQueue<Node> requestQue = new ConcurrentLinkedQueue<Node>();
-		ConcurrentLinkedQueue<Node> resultQue = new ConcurrentLinkedQueue<Node>();
+		ConcurrentLinkedQueue<String> requestQue = new ConcurrentLinkedQueue<String>();
+		ConcurrentLinkedQueue<String> resultQue = new ConcurrentLinkedQueue<String>();
 
-		new RuntimeThr(requestQue, resultQue).run();
+		requestQue.add("NEXTEVEN");
+		requestQue.add("NEXEVENFIB");
+		requestQue.add("NEXTEVENFIB");
+		requestQue.add("NEXTODD");
+		requestQue.add("NEXTPRIM");
 
+		new RuntimeThr(requestQue, resultQue).run();	
 	}
 }

@@ -1,34 +1,21 @@
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.*;
 
 public class NetworkThr implements Runnable {
 	private Socket client;
 	private String command, result;
+	private Node node;
 
-	public NetworkThr (Socket s, Stirng cmd) {
-		this.client = s;
-		this.command;
+	public ConcurrentLinkedQueue<String> requestQue;
+	public ConcurrentLinkedQueue<String> resultQue;
+
+	public NetworkThr (String cmd, ConcurrentLinkedQueue<String> result) {
+		this.command = cmd;
+		this.resultQue = result;
 	}
 
-	@Overrride
 	public void run() {
-		try {
-			DataOutputStream outToServer = new DataOutputStream(client.getOutputStream());
-			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			
-			outToServer.writeBytes(command + '\n');
-			messageFromServer = inFromServer.readLine();
-
-			System.out.println("message: " + messageFromServer);
-			
-			// Enqueue on the resultQueue
-
-
-
-
-			client.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		resultQue.add("DEVIN " + command);
 	}
 }

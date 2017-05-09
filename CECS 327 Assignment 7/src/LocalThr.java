@@ -1,29 +1,48 @@
-import java.util.*;
+import java.io.*;
+import java.net.*;
+import java.util.concurrent.*;
+
 public class LocalThr extends Thread {
-	int x = 0;
+	public int x;
+	public String command;
+	public ConcurrentLinkedQueue<String> resultQue;
+
+	public LocalThr(String cmd, int val, ConcurrentLinkedQueue<String> r) {
+		this.command = cmd;
+		this.x = val;
+		this.resultQue = r;
+	}
 	
 	public void run() {
-		if(x > 10){
+		int result = 0;
+		if(x > 10) {
 			x = 0;
 		}
-		//if call == nextEven
-			//setNextEven()
-		//if call == nextOdd
-			//setNextOdd()
+
+		if (!command.equals("NEXTEVEN"))
+			result = setNextEven();
+		else
+			result = setNextOdd();
+
+		resultQue.add("NOT PENIS " +result);
+
 		System.out.println("Hello");
 	}
 	
-	public void setNextEven(){
-		while(x % 2 != 0){
+	public int setNextEven() {
+		while(x % 2 != 0) {
 			x++;
 		}
+
+		return x;
 		//put x in queue if even
 	}
 	
-	public void setNextOdd(){
+	public int setNextOdd() {
 		while(x % 2 == 0){
-			x++
+			x++;
 		}
-		//put x in queue if odd
+		
+		return x;
 	}
 }
