@@ -1,14 +1,22 @@
+import java.io.*;
+import java.net.*;
 import java.util.concurrent.*;
 
 public class RuntimeThr extends Thread {
 	public ConcurrentLinkedQueue<String> requestQue;
 	public ConcurrentLinkedQueue<String> resultQue;
-	//public Socket clientSocket;
+	public Socket clientSocket;
 
 	public RuntimeThr(ConcurrentLinkedQueue<String> request, ConcurrentLinkedQueue<String> result) {
 		this.requestQue = request;
 		this.resultQue = result;
-		//this.clientSocket = cs;
+
+		try {
+			clientSocket = new Socket("localhost", 4445);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
@@ -19,10 +27,13 @@ public class RuntimeThr extends Thread {
 				System.out.println("REQUEST: " + request);
 
 
-				if(!request.equals("NEXTEVEN") || !request.equals("NEXTODD")) {
-					new NetworkThr(request, resultQue).run();
-				} else {
+				if(request.equals("NEXTEVEN\n") || request.equals("NEXTODD\n")) {
 					System.out.println("Spawned local thr");
+				} else {
+					if(request != null) {
+						new NetworkThr(request, resultQue, clientSocket).run();
+					}
+					
 				}
 				requestQue.remove();
 			}
@@ -32,8 +43,10 @@ public class RuntimeThr extends Thread {
 				System.out.println("Result Queue is empty");
 			else {
 				while(!resultQue.isEmpty()) {
-					System.out.println("RESULT: " + resultQue.peek());
-					resultQue.remove();
+					if(resultQue.peek() != null) {
+						System.out.println("RESULT: " + resultQue.peek());
+						resultQue.remove();
+					}
 				}
 			}
 

@@ -29,30 +29,33 @@ class ServerThread extends Thread {
 			while (true) {	
 				// Request that was sent from the client
 				choice = inFromClient.readLine();
-				
-				switch (choice) {
-				// Calculates the next even fib by creating a new
-				// thread to handle that calculation
-				case "NEXTEVENFIB":
-					new EvenFib(client).run();
-					// Increments the fib index tracker so no duplicates
-					// are sent
-					Server.fib++;
-					break;
-					// Calculates the next even nextLargerRan by creating a new
-					// thread to handle that calculation
-				case "NEXTLARGERRAND":
-					new NextLargeRan(client).run();
-					break;
-					// Calculates the next prime by creating a new
-					// thread to handle that calculation
-				case "NEXTPRIME":
-					new NextPrime(client).run();
-					// Increments the prime index tracker so no duplicates
-					// are sent
-					Server.prime++;
-					break;
+				if(choice != null) {
+					System.out.println(choice);
+					switch (choice) {
+						// Calculates the next even fib by creating a new
+						// thread to handle that calculation
+						case "NEXTEVENFIB":
+							new EvenFib(client).run();
+							// Increments the fib index tracker so no duplicates
+							// are sent
+							Server.fib++;
+							break;
+						// Calculates the next even nextLargerRan by creating a new
+						// thread to handle that calculation
+						case "NEXTLARGERRAND":
+							new NextLargeRan(client).run();
+							break;
+						// Calculates the next prime by creating a new
+						// thread to handle that calculation
+						case "NEXTPRIME":
+							new NextPrime(client).run();
+							// Increments the prime index tracker so no duplicates
+							// are sent
+							Server.prime++;
+							break;
 				}
+				}
+				
 			}
 		} catch (Exception e) {
 			// Displays that the client it was connected to
