@@ -6,10 +6,15 @@ public class UClient {
 		ConcurrentLinkedQueue<String> resultQue = new ConcurrentLinkedQueue<String>();
 
 		requestQue.add("NEXTEVEN\n");
-		requestQue.add("NEXTEVENFIB\n");
-		requestQue.add("NEXTLARGERRAND\n");
+		
 		requestQue.add("NEXTODD\n");
-		requestQue.add("NEXTPRIME\n");
+		
+		requestQue.add("NEXTODD\n");
+		
+		requestQue.add("NEXTODD\n");
+		
+		requestQue.add("NEXTEVEN\n");
+		
 
 		new RuntimeThr(requestQue, resultQue).run();	
 	}

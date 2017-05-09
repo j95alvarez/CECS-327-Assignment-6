@@ -53,7 +53,7 @@ class ServerThread extends Thread {
 							// are sent
 							Server.prime++;
 							break;
-				}
+					}
 				}
 				
 			}

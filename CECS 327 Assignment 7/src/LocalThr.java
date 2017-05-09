@@ -7,10 +7,10 @@ public class LocalThr extends Thread {
 	public String command;
 	public ConcurrentLinkedQueue<String> resultQue;
 
-	public LocalThr(String cmd, int val, ConcurrentLinkedQueue<String> r) {
-		this.command = cmd;
-		this.x = val;
+	public LocalThr(String cmd, ConcurrentLinkedQueue<String> r) {
+		this.command = cmd; 
 		this.resultQue = r;
+		this.x = RuntimeThr.evenOddSequence;
 	}
 	
 	public void run() {
@@ -19,14 +19,12 @@ public class LocalThr extends Thread {
 			x = 0;
 		}
 
-		if (!command.equals("NEXTEVEN"))
+		if (command.equals("NEXTEVEN\n"))
 			result = setNextEven();
 		else
 			result = setNextOdd();
 
-		resultQue.add("NOT PENIS " +result);
-
-		System.out.println("Hello");
+		resultQue.add(result + "");
 	}
 	
 	public int setNextEven() {
@@ -34,15 +32,18 @@ public class LocalThr extends Thread {
 			x++;
 		}
 
+		RuntimeThr.evenOddSequence = x;
+
 		return x;
-		//put x in queue if even
 	}
 	
 	public int setNextOdd() {
-		while(x % 2 == 0){
+		while(x % 2 != 1){
 			x++;
 		}
 		
+		RuntimeThr.evenOddSequence = x;
+
 		return x;
 	}
 }

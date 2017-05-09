@@ -3,6 +3,8 @@ import java.net.*;
 import java.util.concurrent.*;
 
 public class RuntimeThr extends Thread {
+	public static int evenOddSequence = 0;
+
 	public ConcurrentLinkedQueue<String> requestQue;
 	public ConcurrentLinkedQueue<String> resultQue;
 	public Socket clientSocket;
@@ -28,7 +30,10 @@ public class RuntimeThr extends Thread {
 
 
 				if(request.equals("NEXTEVEN\n") || request.equals("NEXTODD\n")) {
-					System.out.println("Spawned local thr");
+					new LocalThr(request, resultQue).run();
+					RuntimeThr.evenOddSequence++;
+
+					//System.out.println("Spawned local thr");
 				} else {
 					if(request != null) {
 						new NetworkThr(request, resultQue, clientSocket).run();
