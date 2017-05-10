@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
 
-public class LocalThr extends Thread {
+public class LocalThr implements Runnable {
 	public int x;
 	public Node node;
 	public ConcurrentLinkedQueue<Node> resultQue;

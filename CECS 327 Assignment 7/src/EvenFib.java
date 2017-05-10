@@ -6,6 +6,7 @@ public class EvenFib extends Thread {
 	// Client's socket info
 	protected Socket client;
 	private int num;
+	private HashMap<Integer, Integer> fibs = new HashMap<Integer, Integer>();
 
 	public EvenFib(Socket c) {
 		this.client = c;
@@ -50,7 +51,13 @@ public class EvenFib extends Thread {
 		}
 		if (n == 1) {
 			return 1;
+		} 
+
+		if(fibs.containsKey(n)) {
+			return fibs.get(n);
 		}
+
+		fibs.put(n, fib(n-1) + fib(n - 2));
 		// returns the fib number
 		return fib(n - 1) + fib(n - 2);
 	}

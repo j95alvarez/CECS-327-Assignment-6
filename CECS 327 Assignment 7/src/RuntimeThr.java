@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
 
-public class RuntimeThr extends Thread {
+public class RuntimeThr implements Runnable {
 	public static int evenOddSequence = 0;
 
 	public ConcurrentLinkedQueue<Node> requestQue;
@@ -19,10 +19,16 @@ public class RuntimeThr extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+
 	}
 
 	public void run() {
+
 		while(true){
+
+			while (requestQue.isEmpty()) { }
+
 			while(!requestQue.isEmpty()) {
 				Node request = requestQue.peek();
 				
@@ -41,9 +47,12 @@ public class RuntimeThr extends Thread {
 					
 				}
 				requestQue.remove();
+
+				
 			}
 
 
+			
 			
 			if(resultQue.isEmpty()) 
 				System.out.println("Result Queue is empty");

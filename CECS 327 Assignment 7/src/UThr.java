@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.concurrent.*;
 import java.util.*;
 
-public class UThr extends Thread {
+public class UThr implements Runnable {
 	public int id;
 	public ConcurrentLinkedQueue<Node> requestQue;
 	public ConcurrentLinkedQueue<Node> resultQue;
@@ -51,7 +51,8 @@ public class UThr extends Thread {
 				//Do nothing
 			//Node som = returnQue.pull()
 			//Print to terminal
-		}
 
+
+		}
 	}
 }

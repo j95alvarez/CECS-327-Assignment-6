@@ -17,9 +17,17 @@ public class UClient {
 		requestQue.add("NEXTEVEN\n");
 		*/
 
-		for(int i = 0; i < 8; i++)
-			new UThr(i, requestQue, resultQue).run();
+		
+		Thread t1 = new Thread(new RuntimeThr(requestQue, resultQue), "Main");	
+		Thread[] ts = new Thread[8];
 
-		new RuntimeThr(requestQue, resultQue).run();	
+		t1.start();
+
+		for(int i = 0; i < ts.length; i++)
+			ts[i] = new Thread(new UThr(i, requestQue, resultQue), i + "");
+
+		for(int i = 0; i < ts.length; i++)
+			ts[i].start();
+
 	}
 }
