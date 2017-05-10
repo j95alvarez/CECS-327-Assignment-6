@@ -4,14 +4,14 @@ import java.util.concurrent.*;
 
 public class NetworkThr implements Runnable {
 	private Socket client;
-	private String command, result;
+	private Node command, result;
 	private Node node;
 
-	public ConcurrentLinkedQueue<String> requestQue;
-	public ConcurrentLinkedQueue<String> resultQue;
+	public ConcurrentLinkedQueue<Node> requestQue;
+	public ConcurrentLinkedQueue<Node> resultQue;
 
-	public NetworkThr (String cmd, ConcurrentLinkedQueue<String> result, Socket c) {
-		this.command = cmd;
+	public NetworkThr (Node cmd, ConcurrentLinkedQueue<Node> result, Socket c) {
+		this.node = cmd;
 		this.resultQue = result;
 		this.client = c;
 	}
@@ -21,10 +21,10 @@ public class NetworkThr implements Runnable {
 			DataOutputStream outToServer = new DataOutputStream(client.getOutputStream());
 			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			
-			outToServer.writeBytes(command + '\n');
-			result = inFromServer.readLine();
+			outToServer.writeBytes(node.command + '\n');
+			node.command = inFromServer.readLine();
 			
-			resultQue.add(command + " " + result);
+			resultQue.add(node);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

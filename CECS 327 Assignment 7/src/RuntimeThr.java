@@ -5,11 +5,11 @@ import java.util.concurrent.*;
 public class RuntimeThr extends Thread {
 	public static int evenOddSequence = 0;
 
-	public ConcurrentLinkedQueue<String> requestQue;
-	public ConcurrentLinkedQueue<String> resultQue;
+	public ConcurrentLinkedQueue<Node> requestQue;
+	public ConcurrentLinkedQueue<Node> resultQue;
 	public Socket clientSocket;
 
-	public RuntimeThr(ConcurrentLinkedQueue<String> request, ConcurrentLinkedQueue<String> result) {
+	public RuntimeThr(ConcurrentLinkedQueue<Node> request, ConcurrentLinkedQueue<Node> result) {
 		this.requestQue = request;
 		this.resultQue = result;
 
@@ -24,12 +24,12 @@ public class RuntimeThr extends Thread {
 	public void run() {
 		while(true){
 			while(!requestQue.isEmpty()) {
-				String request = requestQue.peek();
+				Node request = requestQue.peek();
 				
 				System.out.println("REQUEST: " + request);
 
 
-				if(request.equals("NEXTEVEN") || request.equals("NEXTODD")) {
+				if(request.command.equals("NEXTEVEN") || request.command.equals("NEXTODD")) {
 					new LocalThr(request, resultQue).run();
 					RuntimeThr.evenOddSequence++;
 
@@ -44,6 +44,7 @@ public class RuntimeThr extends Thread {
 			}
 
 
+			
 			if(resultQue.isEmpty()) 
 				System.out.println("Result Queue is empty");
 			else {
@@ -56,6 +57,7 @@ public class RuntimeThr extends Thread {
 			}
 
 			break;
+			
 		}
 		
 

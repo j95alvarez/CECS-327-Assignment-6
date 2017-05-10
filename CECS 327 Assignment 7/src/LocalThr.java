@@ -4,11 +4,11 @@ import java.util.concurrent.*;
 
 public class LocalThr extends Thread {
 	public int x;
-	public String command;
-	public ConcurrentLinkedQueue<String> resultQue;
+	public Node node;
+	public ConcurrentLinkedQueue<Node> resultQue;
 
-	public LocalThr(String cmd, ConcurrentLinkedQueue<String> r) {
-		this.command = cmd; 
+	public LocalThr(Node cmd, ConcurrentLinkedQueue<Node> r) {
+		this.node = cmd; 
 		this.resultQue = r;
 		this.x = RuntimeThr.evenOddSequence;
 	}
@@ -19,12 +19,12 @@ public class LocalThr extends Thread {
 			x = 0;
 		}
 
-		if (command.equals("NEXTEVEN"))
-			result = setNextEven();
+		if (node.command.equals("NEXTEVEN"))
+			node.command = "" + setNextEven();
 		else
-			result = setNextOdd();
+			node.command = "" + setNextOdd();
 
-		resultQue.add(command + " " + result);
+		resultQue.add(node);
 	}
 	
 	public int setNextEven() {
